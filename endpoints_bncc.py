@@ -24,7 +24,10 @@ table_names = show_table_names.fetchall()
 for x in table_names:
     print(x)
 select_table = input(str(f"Digite o nome da tabela que você deseja:"))
-#column_names = pd.read_sql(f"select * from {select_table}", connection)
+
+#teste = pd.read_sql(f"select * from {select_table}", connection )
+#teste_df = pd.DataFrame(teste)
+#print(teste_df.tail())
 
 
 @app.route('/apibncc', methods=["GET"])
@@ -83,7 +86,7 @@ def list_all():
         'nono_ef': x[17]
         })
         return jsonify(message = "dados", data = eng_list)
-    else: 
+    elif select_table.endswith("_ef") and select_table not in ["bncc_lingua_portuguesa_ef", "bncc_lingua_inglesa_ef"]:
         for x in data_get:
             data_show.append({
             'column1': x[0],
@@ -104,6 +107,69 @@ def list_all():
             'nono_ef': x[15]
         })
         return jsonify(message= "dados", data = data_show)
+    elif select_table.endswith("_inf") and not select_table.startswith("df"):
+        inf_list = []
+        for x in data_get:
+            inf_list.append({
+                "column1": x[0],
+                "campo_exp": x[1],
+                "faixa_etaria": x[2],
+                "obj": x[3],
+                "cod_apr": x[4],
+                "descricao_cod": x[5],
+                "idade_anos_inicial": x[6],
+                "idade_meses_inicial": x[7],
+                "idade_anos_final": x[8],
+                "idade_meses_final": x[9]
+
+            })
+        return jsonify(message = "Esses são os dados solicitados", data = inf_list)
+    elif select_table == "df_edu_inf":
+        df_edu_inf_list = []
+        for x in data_get:
+                  df_edu_inf_list.append({
+                "column1": x[0],
+                "campo_exp": x[1],
+                "faixa_etaria": x[2],
+                "cod_apr": x[3],
+                "descricao_cod": x[4],
+                "idade_anos_inicial": x[5],
+                "idade_meses_inicial": x[6],
+                "idade_anos_final": x[7],
+                "idade_meses_final": x[8]
+                  })
+        return jsonify(message = "Esses são os dados solicitados do df_edu_inf", data = df_edu_inf_list)
+    elif select_table.endswith("_em") and not select_table.startswith("c"):
+        em_list = []
+        for x in data_get:
+              em_list.append({                   
+                'column1': x[0],
+                'ano_faixa': x[1], 
+                'cod_hab': x[2],
+                'habilidades': x[3],
+                'primeiro_ano': x[4],
+                'segundo_ano': x[5],
+                'terceiro_ano': x[6],
+                'area': x[7], 
+                'competencias_esp': x[8],
+                'campos_atuacao' : x[9]
+              })
+        return jsonify(message = "Dados de df_habilidades_em", data = em_list)
+    elif select_table.endswith("_em") and select_table.startswith("c"):
+        em_competencias_list = []
+        for x in data_get:
+            em_competencias_list.append({
+                "column1": x[0],
+                "competencias": x[1],
+                "area": x[2]
+              })
+        return jsonify(message = "Dados solicitados", data = em_competencias_list)
+
+
+
+
+
+
    
 app.run(debug=True)
    
