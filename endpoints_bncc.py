@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request 
 import pyodbc
-import pandas as pd
 
 app = Flask(__name__)
 
@@ -23,19 +22,17 @@ table_names = show_table_names.fetchall()
 
 for x in table_names:
     print(x)
-select_table = input(str(f"Digite o nome da tabela que você deseja:"))
 
-#teste = pd.read_sql(f"select * from {select_table}", connection )
+#teste = pd.read_sql(f"select * from {subject}", connection )
 #teste_df = pd.DataFrame(teste)
 #print(teste_df.tail())
 
-
-@app.route('/apibncc', methods=["GET"])
-def list_all():
-    db = cursor.execute(f"SELECT * FROM {select_table}")
+@app.route('/apibncc/<subject>', methods=["GET"])
+def list_all(subject):
+    db = cursor.execute(f"SELECT * FROM {subject}")
     data_get = db.fetchall()
     data_show = []
-    if select_table == "bncc_lingua_portuguesa_ef":
+    if subject == "bncc_lingua_portuguesa_ef":
         pl_list = []
         for x in data_get:
             pl_list.append({
@@ -58,8 +55,8 @@ def list_all():
             'oitavo_ef': x[16],
             'nono_ef': x[17]
         })
-        return jsonify(message = "dados", data = pl_list)
-    elif select_table == "bncc_lingua_inglesa_ef":
+        return jsonify(message = "Dados solicitados", data = pl_list)
+    elif subject == "bncc_lingua_inglesa_ef":
         eng_list = []
         for x in data_get:
             eng_list.append({
@@ -86,7 +83,7 @@ def list_all():
         'nono_ef': x[17]
         })
         return jsonify(message = "dados", data = eng_list)
-    elif select_table.endswith("_ef") and select_table not in ["bncc_lingua_portuguesa_ef", "bncc_lingua_inglesa_ef"]:
+    elif subject.endswith("_ef") and subject not in ["bncc_lingua_portuguesa_ef", "bncc_lingua_inglesa_ef"]:
         for x in data_get:
             data_show.append({
             'column1': x[0],
@@ -107,7 +104,7 @@ def list_all():
             'nono_ef': x[15]
         })
         return jsonify(message= "dados", data = data_show)
-    elif select_table.endswith("_inf") and not select_table.startswith("df"):
+    elif subject.endswith("_inf") and not subject.startswith("df"):
         inf_list = []
         for x in data_get:
             inf_list.append({
@@ -121,9 +118,10 @@ def list_all():
                 "idade_meses_inicial": x[7],
                 "idade_anos_final": x[8],
                 "idade_meses_final": x[9]
+
             })
         return jsonify(message = "Esses são os dados solicitados", data = inf_list)
-    elif select_table == "df_edu_inf":
+    elif subject == "df_edu_inf":
         df_edu_inf_list = []
         for x in data_get:
                   df_edu_inf_list.append({
@@ -138,7 +136,7 @@ def list_all():
                 "idade_meses_final": x[8]
                   })
         return jsonify(message = "Esses são os dados solicitados do df_edu_inf", data = df_edu_inf_list)
-    elif select_table.endswith("_em") and not select_table.startswith("c"):
+    elif subject.endswith("_em") and not subject.startswith("c"):
         em_list = []
         for x in data_get:
               em_list.append({                   
@@ -154,7 +152,7 @@ def list_all():
                 'campos_atuacao' : x[9]
               })
         return jsonify(message = "Dados de df_habilidades_em", data = em_list)
-    elif select_table.endswith("_em") and select_table.startswith("c"):
+    elif subject.endswith("_em") and subject.startswith("c"):
         em_competencias_list = []
         for x in data_get:
             em_competencias_list.append({
@@ -163,7 +161,9 @@ def list_all():
                 "area": x[2]
               })
         return jsonify(message = "Dados solicitados", data = em_competencias_list)
+    
 
+     
    
 app.run(debug=True)
    
