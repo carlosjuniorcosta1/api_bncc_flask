@@ -26,7 +26,6 @@ for x in table_names:
 #teste = pd.read_sql(f"select * from {subject}", connection )
 #teste_df = pd.DataFrame(teste)
 #print(teste_df.tail())
-
 @app.route('/apibncc/<subject>', methods=["GET"])
 @app.route('/apibncc/<subject>/<grade>', methods = ["GET"])
 def list_all(subject, grade = None):
@@ -67,13 +66,11 @@ def list_all(subject, grade = None):
                 'componente': x[1], 
                 'ano_faixa': x[2], 
                 'eixo': x[3], 
-                'unidades_tematicas': x[4],
-                    
+                'unidades_tematicas': x[4],                    
                 'objetos_conhecimento': x[5], 
                 'habilidades': x[6],
                 'cod_hab': x[7],
-                'descricao_cod': x[8],
-                
+                'descricao_cod': x[8],                
                 'primeiro_ef': x[9],
                 'segundo_ef': x[10],
                 'terceiro_ef': x[11],
@@ -93,18 +90,19 @@ def list_all(subject, grade = None):
                     'componente': x[1],
                     'ano_faixa' : x[2],
                     'objetos_conhecimento': x[3],
-                    'habilidades': x[4],
-                    'cod_hab': x[5], 
-                    'descricao_cod': x[6], 
-                    'primeiro_ef': x[7], 
-                    'segundo_ef':x[8], 
-                    'terceiro_ef': x[9],
-                    'quarto_ef': x[10],
-                    'quinto_ef': x[11],
-                    'sexto_ef': x[12],
-                    'setimo_ef': x[13],
-                    'oitavo_ef': x[14],
-                    'nono_ef': x[15]
+                    'unidades_tematicas': x[4],
+                    'habilidades': x[5],
+                    'cod_hab': x[6], 
+                    'descricao_cod': x[7], 
+                    'primeiro_ef': x[8], 
+                    'segundo_ef':x[9], 
+                    'terceiro_ef': x[10],
+                    'quarto_ef': x[11],
+                    'quinto_ef': x[12],
+                    'sexto_ef': x[13],
+                    'setimo_ef': x[14],
+                    'oitavo_ef': x[15],
+                    'nono_ef': x[16]
                 })
                 return jsonify(message= "dados", data = data_show)
             elif subject.endswith("_inf") and not subject.startswith("df"):
@@ -201,13 +199,11 @@ def list_all(subject, grade = None):
                 'componente': x[1], 
                 'ano_faixa': x[2], 
                 'eixo': x[3], 
-                'unidades_tematicas': x[4],
-                    
+                'unidades_tematicas': x[4],                    
                 'objetos_conhecimento': x[5], 
                 'habilidades': x[6],
                 'cod_hab': x[7],
-                'descricao_cod': x[8],
-                
+                'descricao_cod': x[8],                
                 'primeiro_ef': x[9],
                 'segundo_ef': x[10],
                 'terceiro_ef': x[11],
@@ -226,19 +222,20 @@ def list_all(subject, grade = None):
                     'column1': x[0],
                     'componente': x[1],
                     'ano_faixa' : x[2],
-                    'objetos_conhecimento': x[3],
-                    'habilidades': x[4],
-                    'cod_hab': x[5], 
-                    'descricao_cod': x[6], 
-                    'primeiro_ef': x[7], 
-                    'segundo_ef':x[8], 
-                    'terceiro_ef': x[9],
-                    'quarto_ef': x[10],
-                    'quinto_ef': x[11],
-                    'sexto_ef': x[12],
-                    'setimo_ef': x[13],
-                    'oitavo_ef': x[14],
-                    'nono_ef': x[15]
+                    'unidades_tematicas': x[3]
+                    'objetos_conhecimento': x[4],
+                    'habilidades': x[5],
+                    'cod_hab': x[6], 
+                    'descricao_cod': x[7], 
+                    'primeiro_ef': x[8], 
+                    'segundo_ef':x[9], 
+                    'terceiro_ef': x[10],
+                    'quarto_ef': x[11],
+                    'quinto_ef': x[12],
+                    'sexto_ef': x[13],
+                    'setimo_ef': x[14],
+                    'oitavo_ef': x[15],
+                    'nono_ef': x[16]
                 })
                 return jsonify(message= "dados", data = data_show)
             elif subject.endswith("_inf") and not subject.startswith("df"):
@@ -299,8 +296,6 @@ def list_all(subject, grade = None):
                     })
                 return jsonify(message = "Dados solicitados", data = em_competencias_list)
             
-            
-
 
 
 app.run(debug=True)
