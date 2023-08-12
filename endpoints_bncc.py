@@ -121,7 +121,6 @@ def list_all():
                 "idade_meses_inicial": x[7],
                 "idade_anos_final": x[8],
                 "idade_meses_final": x[9]
-
             })
         return jsonify(message = "Esses são os dados solicitados", data = inf_list)
     elif select_table == "df_edu_inf":
@@ -164,11 +163,6 @@ def list_all():
                 "area": x[2]
               })
         return jsonify(message = "Dados solicitados", data = em_competencias_list)
-
-
-
-
-
 
    
 app.run(debug=True)
