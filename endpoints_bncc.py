@@ -222,7 +222,7 @@ def list_all(subject, grade = None):
                     'column1': x[0],
                     'componente': x[1],
                     'ano_faixa' : x[2],
-                    'unidades_tematicas': x[3]
+                    'unidades_tematicas': x[3],
                     'objetos_conhecimento': x[4],
                     'habilidades': x[5],
                     'cod_hab': x[6], 
