@@ -295,9 +295,41 @@ def list_all(subject, grade = None):
                         "area": x[2]
                     })
                 return jsonify(message = "Dados solicitados", data = em_competencias_list)
-            
 
-
+@app.route('/apibncc/', methods = ["GET"])
+def list_all_two():
+    subject = request.args.get('materia', None, type= str)
+    grade = request.args.get('ano', None, type = str)
+    query_s = cursor.execute(f""" SELECT * FROM {subject} where {grade} = 'true'                                                          
+                             """)                             
+    query_s = query_s.fetchall()
+    query_l = []
+    print(query_s)
+    for x in query_s:
+        query_l.append(
+    {            
+                    'column1': x[0],
+                    'componente': x[1],
+                    'ano_faixa' : x[2],
+                    'unidades_tematicas': x[3],
+                    'objetos_conhecimento': x[4],
+                    'habilidades': x[5],
+                    'cod_hab': x[6], 
+                    'descricao_cod': x[7], 
+                    'primeiro_ef': x[8], 
+                    'segundo_ef':x[9], 
+                    'terceiro_ef': x[10],
+                    'quarto_ef': x[11],
+                    'quinto_ef': x[12],
+                    'sexto_ef': x[13],
+                    'setimo_ef': x[14],
+                    'oitavo_ef': x[15],
+                    'nono_ef': x[16]
+     
+    }
+)                 
+    return jsonify(message = "dados solicitados", data = query_l)
+    
 app.run(debug=True)
    
 
